@@ -40,6 +40,16 @@ class City
      */
     private $commentaire;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Chambre::class, mappedBy="city")
+     */
+    private $chambres;
+
+    public function __construct()
+    {
+        $this->chambres = new ArrayCollection();
+    }
+
 
 
    
@@ -107,6 +117,36 @@ class City
     public function setName($name)
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Chambre[]
+     */
+    public function getChambres(): Collection
+    {
+        return $this->chambres;
+    }
+
+    public function addChambre(Chambre $chambre): self
+    {
+        if (!$this->chambres->contains($chambre)) {
+            $this->chambres[] = $chambre;
+            $chambre->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChambre(Chambre $chambre): self
+    {
+        if ($this->chambres->removeElement($chambre)) {
+            // set the owning side to null (unless already changed)
+            if ($chambre->getCity() === $this) {
+                $chambre->setCity(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,29 @@
+{% extends "base.html.twig" %}
+{% block body %}
+<div class="ui container">
+    <div class="ui grid centered ">
+        <div class="ten wide column">
+            <div id="carousel" class="main-carousel"
+                data-flickity='{ "cellAlign": "left", "contain": true,"autoPlay": true }'>
+                {% for p in chambre.photos %}
+                <img class="carousel-cell" height="300px" src="{{asset('images/'~p.path)}}">
+                {% endfor %}
+            </div>
+        </div>
+        <div class="sixteen wide column">
+            <div class="ui divider"></div>
+            {{ form_start(form)}}
+            {{ form_widget(form)}}
+            <button class="ui right labeled icon button primary">
+                <i class="right send icon"></i>
+                Next
+            </button>
+            {{ form_end(form)}}
+        </div>
+    </div>
+
+
+
+</div>
+
+{% endblock %}

@@ -49,6 +49,21 @@ class Chambre
      */
     private $poster;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="chambres")
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $douche;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $prix;
+
 
     public function __construct()
     {
@@ -147,6 +162,42 @@ class Chambre
     public function setPoster(string $poster): self
     {
         $this->poster = $poster;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getDouche(): ?bool
+    {
+        return $this->douche;
+    }
+
+    public function setDouche(bool $douche): self
+    {
+        $this->douche = $douche;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?int $prix): self
+    {
+        $this->prix = $prix;
 
         return $this;
     }

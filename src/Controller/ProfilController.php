@@ -3,11 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\City;
-use App\Form\ChambreType;
+use App\Entity\Photo;
 use App\Form\CityType;
+use App\Entity\Chambre;
+use App\Form\PhotoType;
+use App\Form\ChambreType;
 use App\Repository\CityRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -32,11 +36,55 @@ class ProfilController extends AbstractController
      */
     public function view_city(City $c,Request $req): Response
     {
-        $chambre = $this->createForm(ChambreType::class,null);
-        $chambre->handleRequest($req);
+        $chambre = new Chambre();
+        $chambre->setCity($c);
+        $chambreForm = $this->createForm(ChambreType::class,$chambre);
+        $chambreForm->handleRequest($req);
+        if ($chambreForm->isSubmitted() && $chambreForm->isValid()) {
+            
+            $em = $this->getDoctrine()->getManager();
+            $file = $chambreForm->get('poster')->getData();
+            $name = $file->getClientOriginalName();
+            $file->move('images',$name);
+            $chambre->setPoster($name);
+            //dd($chambre);
+            $em->persist($chambre);
+            $em->flush();
+            $this->addFlash('succes','Chabre ajouter !!');
+            return $this->redirectToRoute('house_add_img',['id'=>$chambre->getId()]);
+        }
         return $this->render('profil/view_city.html.twig', [
+
             'city' => $c ,
-            'form'=> $chambre->createView(),
+            'form'=> $chambreForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/house/{id}/imgs", name="house_add_img")
+     */
+    public function house_add_img(Chambre $c,Request $req): Response
+    {
+        $photo = new Photo();
+        $photo->setChambre($c);
+        $photoForm = $this->createForm(PhotoType::class,$photo);
+        $photoForm->handleRequest($req);
+        if ($photoForm->isSubmitted() && $photoForm->isValid()) {
+            $file = $photoForm->get('path')->getData();
+            $name = $file->getClientOriginalName();
+            $file->move('images',$name);
+            $photo->setPath($name);
+            $c->addPhoto($photo);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($photo);
+            $em->persist($c);
+            $em->flush();
+            $this->addFlash('succes','image ajouter avec succes ajouter en autre');
+            return $this->redirect($req->headers->get('referer'));
+        }
+        return $this->render('profil/house_add_img.html.twig', [
+            'chambre' => $c ,
+            'form'=> $photoForm->createView(),
         ]);
     }
 

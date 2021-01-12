@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\Image;
 
 class PhotoType extends AbstractType
 {
@@ -14,7 +15,10 @@ class PhotoType extends AbstractType
     {
         $builder
             ->add('path',FileType::class,[
-                'multiple'=>true
+                'label'=>"Image",
+                'constraints'=>[
+                    new Image()
+                ]
             ])
         ;
     }

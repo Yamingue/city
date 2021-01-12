@@ -22,8 +22,15 @@ class ChambreType extends AbstractType
                     'placeholder'=>'ex: B1, 12, A0'
                 ]
             ])
-            ->add('Cuisine',ChoiceType::class,[
-                'label'=>'La chambre Pocède une cuisine interne',
+            ->add('cuisine',ChoiceType::class,[
+                'label'=>'Le local Pocède une cuisine',
+                'choices'=>[
+                    'Non'=>false,
+                    'Oui'=>true
+                ]
+            ])
+            ->add('douche',ChoiceType::class,[
+                'label'=>'Le local Pocède une douche interne',
                 'choices'=>[
                     'Non'=>false,
                     'Oui'=>true
