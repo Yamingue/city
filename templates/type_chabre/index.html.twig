@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}TypeChabre index{% endblock %}
+
+{% block body %}
+    <h1>TypeChabre index</h1>
+
+    <div class="ui container">
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Type</th>
+                    <th>actions</th>
+                </tr>
+            <tbody>
+                {% for type_chabre in type_chabres %}
+                <tr>
+                    <td>{{ type_chabre.id }}</td>
+                    <td>{{ type_chabre.type }}</td>
+                    <td>
+                            <a class="ui positive button" href="{{ path('type_chabre_edit', {'id': type_chabre.id}) }}">éditer</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucun enregistrement disponible</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <a class="ui button blue" href="{{ path('type_chabre_new') }}">Créer un nouveau</a>
+    </div>
+
+    
+{% endblock %}

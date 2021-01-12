@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ProfilController!{% endblock %}
+
+{% block body %}
+<div class="ui container">
+    <div class="ui four column doubling stackable grid container">
+        {% for c in app.user.citys %}
+        <div class="column">
+            <div class="ui card">
+                <a class="image" href="#">
+                    <img src="{{ asset('images/' ~ c.poster)}}">
+                </a>
+                <div class="content">
+                    <a class="header" href="{{ path('view_city',{'id':c.id})}}">{{ c.name }}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

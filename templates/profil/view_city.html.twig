@@ -1,0 +1,26 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+<div class="ui container">
+    {% if city in app.user.citys %}
+        <div class="ui buttons">
+            <button class="ui button" onclick="$('.modal').modal('show')">
+                <i class="add icon"></i>
+                Ajouter une Chambre
+              </button>
+        </div>
+        {% else %}
+        <div class="iu message">
+            cette cité ne fais pas parti de votre collection
+        </div>
+    {% endif %}
+</div>
+<div class="ui modal">
+    <div class="header">Header</div>
+    <div class="content">
+      <p></p>
+      <p></p>
+      <p></p>
+    </div>
+  </div>
+{% endblock %}

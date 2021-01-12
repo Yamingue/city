@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TypeChabre{% endblock %}
+
+{% block body %}
+    <h1>Edit TypeChabre</h1>
+    <div class="ui container">
+        {{ include('type_chabre/_form.html.twig', {'button_label': 'Update'}) }}
+        <p style="margin-top: 10px;">
+            <a class="ui primary button" href="{{ path('type_chabre_index') }}">back to list</a>
+
+            {{ include('type_chabre/_delete_form.html.twig') }}
+        </p>
+    </div>
+
+    
+{% endblock %}

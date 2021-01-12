@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New TypeChabre{% endblock %}
+
+{% block body %}
+    <h1>Create new TypeChabre</h1>
+   
+
+    {{ include('type_chabre/_form.html.twig') }}
+    <div class="ui container" style="margin-top: 10px;">
+        <a class="ui button primary" href="{{ path('type_chabre_index') }}">back to list</a>
+    </div>
+{% endblock %}
