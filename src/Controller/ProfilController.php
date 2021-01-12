@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\City;
+use App\Form\ChambreType;
 use App\Form\CityType;
 use App\Repository\CityRepository;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,11 +30,13 @@ class ProfilController extends AbstractController
      /**
      * @Route("/city/{id}/view", name="view_city")
      */
-    public function view_city(City $c): Response
+    public function view_city(City $c,Request $req): Response
     {
-        
+        $chambre = $this->createForm(ChambreType::class,null);
+        $chambre->handleRequest($req);
         return $this->render('profil/view_city.html.twig', [
             'city' => $c ,
+            'form'=> $chambre->createView(),
         ]);
     }
 

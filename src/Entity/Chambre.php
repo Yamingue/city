@@ -27,11 +27,6 @@ class Chambre
     /**
      * @ORM\Column(type="boolean")
      */
-    private $boolean;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
     private $Cuisine;
 
     /**
@@ -48,6 +43,11 @@ class Chambre
      * @ORM\ManyToOne(targetEntity=TypeChabre::class, inversedBy="chambres")
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $poster;
 
 
     public function __construct()
@@ -68,18 +68,6 @@ class Chambre
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
-        return $this;
-    }
-
-    public function getBoolean(): ?bool
-    {
-        return $this->boolean;
-    }
-
-    public function setBoolean(bool $boolean): self
-    {
-        $this->boolean = $boolean;
 
         return $this;
     }
@@ -147,6 +135,18 @@ class Chambre
     public function setType(?TypeChabre $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPoster(): ?string
+    {
+        return $this->poster;
+    }
+
+    public function setPoster(string $poster): self
+    {
+        $this->poster = $poster;
 
         return $this;
     }

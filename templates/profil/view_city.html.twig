@@ -18,9 +18,12 @@
 <div class="ui modal">
     <div class="header">Header</div>
     <div class="content">
-      <p></p>
-      <p></p>
-      <p></p>
+      <p>
+        {{ form_start(form)}}
+        {{ form_widget(form)}}
+        <input type="submit" value="Save">
+        {{ form_end(form)}}
+      </p>
     </div>
   </div>
 {% endblock %}
