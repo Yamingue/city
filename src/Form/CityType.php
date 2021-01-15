@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\City;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -18,15 +19,24 @@ class CityType extends AbstractType
             ->add('name',null,[
                 'label'=>'Nom de la cité'
                 ])
+            ->add('eau',ChoiceType::class,[
+                'Label'=> "Source d'eau",
+                'choices'=>[
+                    'Forage'=>'Forage',
+                    'Puits'=>'Puits',
+                    'Camwater'=>'Camwater'
+                ]
+            ])
+            ->add('poster',FileType::class,[
+                    'constraints'=>[
+                        new Image()
+                    ]
+                ])
             ->add('commentaire',TextareaType::class,[
                 'label'=>'Nom de la cité',
                 'attr'=>['placeholder'=>'Parler de votre cité sa localisation par raport a l\'université et tous ce qui est necessaire a savoir.']
                 ])
-            ->add('poster',FileType::class,[
-                'constraints'=>[
-                    new Image()
-                ]
-            ])
+            
         ;
     }
 

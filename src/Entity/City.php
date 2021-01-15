@@ -45,6 +45,11 @@ class City
      */
     private $chambres;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $eau;
+
     public function __construct()
     {
         $this->chambres = new ArrayCollection();
@@ -147,6 +152,23 @@ class City
                 $chambre->setCity(null);
             }
         }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    public function getEau(): ?string
+    {
+        return $this->eau;
+    }
+
+    public function setEau(?string $eau): self
+    {
+        $this->eau = $eau;
 
         return $this;
     }

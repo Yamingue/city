@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
-    {% block stylesheets %}{% endblock %}
+    {% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('css/materialize.css')}}">
+    {% endblock %}
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <link rel="stylesheet" href="{{ asset('Semantic/semantic.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/flickity.css') }}">
@@ -12,18 +14,31 @@
 </head>
 
 <body>
-    {% for mess in app.flashes('succes') %}
-    <div class="ui icon success  message">
-        <i class="notched slash outline icon"></i>
-        <div class="content">
-            <p class="header">
-                {{ mess }}
-            </p>
+    {% include "menu.html.twig" %}
+    <div class="ui segment">
+        {% block sidebar %}
+        {% include "sidebar.html.twig" %}
+        {% endblock %}
+        {% for mess in app.flashes('succes') %}
+        <div class="ui icon success  message">
+            <i class="notched slash outline icon"></i>
+            <div class="content">
+                <p class="header">
+                    {{ mess }}
+                </p>
+            </div>
         </div>
+        {% endfor %}
+        {% block body %}{% endblock %}
     </div>
-    {% endfor %}
-    {% block body %}{% endblock %}
-    {% block javascripts %}{% endblock %}
+
+    {% block javascripts %}
+    <script src="{{asset('js/materialize.js')}}"></script>
+
+    {% endblock %}
+    <script>
+        M.AutoInit();
+    </script>
 </body>
 
 <script src="{{ asset('Semantic/semantic.min.js') }}"></script>

@@ -8,10 +8,9 @@ use App\Form\CityType;
 use App\Entity\Chambre;
 use App\Form\PhotoType;
 use App\Form\ChambreType;
-use App\Repository\CityRepository;
+use App\Repository\TypeChabreRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -20,6 +19,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 */
 class ProfilController extends AbstractController
 {
+    private $catRepo;
+
+    public function __construct( TypeChabreRepository $tr )
+    {
+        $this->catRepo=$tr;
+    }
     /**
      * @Route("/", name="profil")
      */
@@ -28,6 +33,7 @@ class ProfilController extends AbstractController
         
         return $this->render('profil/index.html.twig', [
             'controller_name' => 'ProfilController',
+            'cat'=> $this->catRepo->findAll(),
         ]);
     }
 
@@ -57,6 +63,7 @@ class ProfilController extends AbstractController
 
             'city' => $c ,
             'form'=> $chambreForm->createView(),
+            'cat'=> $this->catRepo->findAll(),
         ]);
     }
 
@@ -85,6 +92,7 @@ class ProfilController extends AbstractController
         return $this->render('profil/house_add_img.html.twig', [
             'chambre' => $c ,
             'form'=> $photoForm->createView(),
+            'cat'=> $this->catRepo->findAll(),
         ]);
     }
 
@@ -112,6 +120,7 @@ class ProfilController extends AbstractController
         }
         return $this->render('profil/add_city.html.twig', [
             'form' => $form->createView(),
+            'cat'=> $this->catRepo->findAll(),
         ]);
     }
 }

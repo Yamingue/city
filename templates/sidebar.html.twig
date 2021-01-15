@@ -1,0 +1,18 @@
+<ul id="slide-out" class="sidenav">
+    <li><a href="#!">First Sidebar Link</a></li>
+    <li><a href="#!">Second Sidebar Link</a></li>
+    <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+            <li>
+                <a class="collapsible-header">Categories</a>
+                <div class="collapsible-body">
+                    <ul>
+                        {% for c in cat %}
+                            <li><a href="{{ path('cat',{'id':c.id}) }}">{{ c.type }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>

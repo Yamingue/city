@@ -15,13 +15,20 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class TypeChabreController extends AbstractController
 {
+    private $catRepo;
+
+    public function __construct( TypeChabreRepository $tr )
+    {
+        $this->catRepo=$tr;
+    }
     /**
      * @Route("/", name="type_chabre_index", methods={"GET"})
      */
-    public function index(TypeChabreRepository $typeChabreRepository): Response
+    public function index(): Response
     {
         return $this->render('type_chabre/index.html.twig', [
-            'type_chabres' => $typeChabreRepository->findAll(),
+            'type_chabres' => $this->catRepo->findAll(),
+            'cat'=> $this->catRepo->findAll(),
         ]);
     }
 

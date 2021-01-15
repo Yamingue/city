@@ -1,11 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello IndexController!{% endblock %}
-
+{% block title %}{{ city }}{% endblock %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/materialize.css')}}">
+{% endblock %}
 {% block body %}
 <div class="ui container">
+        <div class="center">
+          <!-- Promo Content 1 goes here -->
+          <img style="max-height: 300px;" src="{{ asset('images/' ~ city.poster) }}" alt="" srcset="">
+        </div>
+
+        <div class="ui message">
+            Nom: {{ city }} <br>
+            Source d'eau: {% if city.eau %}
+                {{ city.eau }}
+                {% else %}
+                Inconnu
+            {% endif %} <br>
+
+        </div>
+        <div class="ui message">
+            {{ city.commentaire}}
+        </div>
     <div class="ui four doubling cards">
-        {% for cm in chambre %}
+        {% for cm in city.chambres %}
 
         <div class="card">
             <div class="image ui placeholder">
@@ -17,7 +36,7 @@
                     <a>{{ cm.prix |number_format(2, '.', ' ')}} FCFA</a>
                 </div>
                 <div class="description">
-                    <a href="{{ path('cat',{id:cm.type.id})}}"> {{cm.type}}</a>
+                    <a href="type={{cm.type.id}}"> {{cm.type}}</a>
                     <br>
                     {% if cm.description |length < 80 %} {{ cm.description }} {% else %} {{ cm.description |slice(0,80) }} ... {% endif %} </div>
                 </div>

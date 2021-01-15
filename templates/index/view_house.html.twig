@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+<link rel="stylesheet" href="{{ asset('css/materialize.css')}}">
+{% endblock %}
+{% block body %}
+<div class="carousel">
+    <a class="carousel-item" href="#one!"><img src="{{ asset('images/' ~ chambre.poster) }}"></a>
+    {% for p in chambre.photos %}
+    <a class="carousel-item" href="#one!"><img src="{{ asset('images/' ~ p.path) }}"></a>
+    {% endfor %}
+
+</div>
+
+<div class="container">
+    <div class="ui buttons">
+        <div class="ui button primary">
+            Réserver
+        </div>
+        <div class="ui button positive">
+            Ajouter dans la liste
+        </div>
+    </div>
+   <div class="ui message">
+    Cuisine : {% if chambre.cuisine %}
+    Oui
+    {% else %}
+    Non
+    {% endif %} <br>
+    Douche interne :
+    {% if chambre.douche %}
+    Oui
+    {% else %}
+    Non
+    {% endif %} <br>
+    Type : {{ chambre.type}} <br>
+    Numeros: {{ chambre.nom}}
+    Cité : <a href="{{ path('city',{'id':chambre.city.id}) }}">{{ chambre.city}}</a>
+   </div>
+    <div class="ui message">
+        {{chambre.description}}
+    </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+<script src="{{asset('js/materialize.js')}}"></script>
+<script>
+    var instance = M.Carousel.init({
+        fullWidth: true,
+        indicators: true
+    });
+
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var elems = document.querySelectorAll('.carousel');
+        var instances = M.Carousel.init(elems);
+    });
+</script>
+{% endblock %}
