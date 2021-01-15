@@ -24,7 +24,7 @@ class IndexController extends AbstractController
      */
     public function index(ChambreRepository $cityRepo): Response
     {
-        $citys = $cityRepo->findAll();
+        $citys = $cityRepo->findLibre();
         
 
         return $this->render('index/index.html.twig', [

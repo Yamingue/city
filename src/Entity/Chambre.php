@@ -64,6 +64,11 @@ class Chambre
      */
     private $prix;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $is_free;
+
 
     public function __construct()
     {
@@ -198,6 +203,18 @@ class Chambre
     public function setPrix(?int $prix): self
     {
         $this->prix = $prix;
+
+        return $this;
+    }
+
+    public function getIsFree(): ?bool
+    {
+        return $this->is_free;
+    }
+
+    public function setIsFree(?bool $is_free): self
+    {
+        $this->is_free = $is_free;
 
         return $this;
     }

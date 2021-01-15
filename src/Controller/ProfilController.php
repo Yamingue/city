@@ -43,6 +43,7 @@ class ProfilController extends AbstractController
     public function view_city(City $c,Request $req): Response
     {
         $chambre = new Chambre();
+        $chambre->setIsFree(true);
         $chambre->setCity($c);
         $chambreForm = $this->createForm(ChambreType::class,$chambre);
         $chambreForm->handleRequest($req);

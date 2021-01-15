@@ -47,4 +47,14 @@ class ChambreRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function findLibre()
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.is_free = :val')
+            ->setParameter('val', true)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
