@@ -15,6 +15,14 @@
                 <div class="header">{{ cm.nom }}</div>
                 <div class="meta">
                     <a>{{ cm.prix |number_format(2, '.', ' ')}} FCFA</a>
+                    <br>
+                    Status : {% if cm.isFree %}
+                        Libre
+                        {% else %}
+                        Occupée
+                    {% endif %}
+                    <br>
+                    Cité : {{ cm.city}}
                 </div>
                 <div class="description">
                     <a href="{{ path('cat',{id:cm.type.id})}}"> {{cm.type}}</a>
