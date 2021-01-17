@@ -21,7 +21,7 @@
             <div class="ui left icon input">
 
                 <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control"
-                required autofocus>
+                    required autofocus>
                 <i class="user icon"></i>
             </div>
         </div>
@@ -33,7 +33,8 @@
             </div>
         </div>
 
-        <button style="margin-top: 10px;"  class="ui positive submit button" type="submit"><i class="sign in alternate icon"></i>Connexion</button>
+        <button style="margin-top: 10px;" class="ui positive submit button" type="submit"><i
+                class="sign in alternate icon"></i>Connexion</button>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
         {#
@@ -51,7 +52,10 @@
 
     <div class="ui message aligned center aligned grid">
         Pas de Compte? <a href="{{ path('app_register') }}">Créer un</a>
-      </div>
+    </div>
+    <div class="ui message aligned center aligned grid">
+        <a href="{{ path('app_forgot_password_request') }}"> Mot de passe Oublier?  </a>
+    </div>
 </div>
 
 {% endblock %}

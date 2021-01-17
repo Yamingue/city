@@ -20,7 +20,7 @@ class CityType extends AbstractType
                 'label'=>'Nom de la cité'
                 ])
             ->add('eau',ChoiceType::class,[
-                'Label'=> "Source d'eau",
+                'label'=> "Source d'eau",
                 'choices'=>[
                     'Forage'=>'Forage',
                     'Puits'=>'Puits',

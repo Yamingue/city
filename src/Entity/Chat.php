@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\ChatRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ChatRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass=ChatRepository::class)
  */
 class Chat

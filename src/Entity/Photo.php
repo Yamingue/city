@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PhotoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PhotoRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass=PhotoRepository::class)
  */
 class Photo

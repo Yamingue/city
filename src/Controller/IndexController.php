@@ -26,6 +26,7 @@ class IndexController extends AbstractController
     {
         $citys = $cityRepo->findLibre();
         
+        
 
         return $this->render('index/index.html.twig', [
             'chambre'=>$citys,

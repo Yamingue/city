@@ -11,7 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
+ * @UniqueEntity(fields={"username","tel","email"}, message="There is already an account with this {{label}}")
  */
 class User implements UserInterface
 {
@@ -52,6 +52,16 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Chat::class, mappedBy="form", orphanRemoval=true)
      */
     private $chats;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $tel;
+
+    /**
+     * @ORM\Column(type="string", length=255, unique=true)
+     */
+    private $email;
 
     public function __construct()
     {
@@ -221,5 +231,34 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }

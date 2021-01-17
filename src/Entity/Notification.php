@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\NotificationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\NotificationRepository;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass=NotificationRepository::class)
  */
 class Notification

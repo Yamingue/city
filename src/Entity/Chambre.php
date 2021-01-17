@@ -2,12 +2,15 @@
 
 namespace App\Entity;
 
-use App\Repository\ChambreRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ChambreRepository;
+use Doctrine\Common\Collections\Collection;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass=ChambreRepository::class)
  */
 class Chambre
@@ -69,10 +72,21 @@ class Chambre
      */
     private $is_free;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $caution;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Reservation::class, mappedBy="chambre")
+     */
+    private $reservations;
+
 
     public function __construct()
     {
         $this->photos = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -215,6 +229,48 @@ class Chambre
     public function setIsFree(?bool $is_free): self
     {
         $this->is_free = $is_free;
+
+        return $this;
+    }
+
+    public function getCaution(): ?int
+    {
+        return $this->caution;
+    }
+
+    public function setCaution(?int $caution): self
+    {
+        $this->caution = $caution;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Reservation[]
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setChambre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getChambre() === $this) {
+                $reservation->setChambre(null);
+            }
+        }
 
         return $this;
     }
