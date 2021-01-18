@@ -4,13 +4,16 @@ namespace App\Controller;
 
 use App\Entity\City;
 use App\Entity\Chambre;
+use App\Entity\Reservation;
 use App\Entity\TypeChabre;
 use App\Form\ReservationType;
 use App\Repository\ChambreRepository;
 use App\Repository\TypeChabreRepository;
+use App\Service\NotificationService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class IndexController extends AbstractController
 {
@@ -38,9 +41,24 @@ class IndexController extends AbstractController
     /**
      * @Route("/house/{id}", name="view_house")
      */
-    public function view_house(Chambre $c): Response
+    public function view_house(Chambre $c,Request $req,NotificationService $notifi ): Response
     {
-        $form = $this->createForm(ReservationType::class,null);
+        $res = new Reservation();
+        $res->setChambre($c);
+        $user =$this->getUser();
+        if ($user!=null) {
+            # code...
+            $res->setEmail($user->getEmail());
+            $res->setTel($user->getTel());
+        }
+        $form = $this->createForm(ReservationType::class,$res);
+        $form->handleRequest($req);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($res);
+            $em->flush();
+            $notifi->sendReservationNotification($res);
+        }
        
         return $this->render('index/view_house.html.twig', [
             'chambre'=>$c,

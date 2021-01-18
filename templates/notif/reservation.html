@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation</title>
+</head>
+<body>
+    <div class="container">
+      <h3>Dang City</h3>
+      Reservation Numero <b> {{reservation.id}}</b>
+      <br>
+      Chambre <a href="{{  absolute_url(path('view_house',{id:reservation.chambre.id})) }}">{{ reservation.chambre.nom }}</a> <br>
+     Cité : <a href="absolute_url( path('city',{id:reservation.chambre.city.id}) )">{{ reservation.chambre.city }}</a>
+    <br>
+      <h2> contact :</h2> <br>
+      <b> Email</b> : <a href="mailto:{{ reservation.email }}">{{ reservation.email }}</a> <br>
+      <b> Téléphone</b> : <a href="tel:+{{ reservation.tel }}">{{ reservation.tel }}</a> <br>
+      Merci pour la satisfaction du service pour sugerer une amelioration de service contater nous sur <a href="mailto:yamking01@gmail.com">yamking01@gmail.com</a> a plus 
+      
+
+    </div>
+</body>
+</html>

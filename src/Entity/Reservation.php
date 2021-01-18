@@ -28,7 +28,7 @@ class Reservation
     private $mois;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=255)
      */
     private $tel;
 
