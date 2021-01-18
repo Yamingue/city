@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\City;
+use App\Entity\TypeChabre;
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,6 +32,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linktoDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToCrud('Users','fa fa-users',User::class);
         yield MenuItem::linkToCrud('City','fas fa-house-user',City::class);
+        yield MenuItem::linkToCrud('Categorie','fa fa-th',TypeChabre::class);
         // yield MenuItem::linkToCrud('The Label', 'fas fa-list', EntityClass::class);
     }
 }

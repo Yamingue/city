@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\City;
 use App\Entity\Chambre;
 use App\Entity\TypeChabre;
+use App\Form\ReservationType;
 use App\Repository\ChambreRepository;
 use App\Repository\TypeChabreRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,11 +40,12 @@ class IndexController extends AbstractController
      */
     public function view_house(Chambre $c): Response
     {
-        
+        $form = $this->createForm(ReservationType::class,null);
        
         return $this->render('index/view_house.html.twig', [
             'chambre'=>$c,
             'cat'=> $this->catRepo->findAll(),
+            'form'=> $form->createView()
         ]);
     }
 

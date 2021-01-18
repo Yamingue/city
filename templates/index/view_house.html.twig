@@ -13,13 +13,29 @@
 
 <div class="container">
     <div class="ui buttons">
-        <div class="ui button primary">
+        <div class="ui button primary" onclick="$('.ui.modal').modal('show');" >
             Réserver
         </div>
         <div class="ui button positive">
             Ajouter dans la liste
         </div>
     </div>
+    <div class="ui modal">
+        <i class="close icon"></i>
+        <div class="header">
+          Reservation
+        </div>
+        <div class="content">
+          <div class="description">
+            {{ form(form)}}
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui black deny button">
+            Fermer
+          </div>
+        </div>
+      </div>
    <div class="ui message">
     Cuisine : {% if chambre.cuisine %}
     Oui
@@ -40,6 +56,8 @@
         {{chambre.description}}
     </div>
 </div>
+
+
 {% endblock %}
 {% block javascripts %}
 <script src="{{asset('js/materialize.js')}}"></script>
